@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grants & Funding – STRIDE Lab</title>
+  <meta name="description" content="Funded research proposals, grants, and awards at STRIDE Lab, University of Michigan–Dearborn." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── GRANT CARD ── */
+    .grant-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem 2rem;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+      transition: box-shadow .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .grant-card:hover { box-shadow: var(--shadow); }
+    .grant-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .grant-card.active::before   { background: var(--forest); }
+    .grant-card.submitted::before { background: var(--gold); }
+    .grant-card.pending::before   { background: #3a6fa0; }
+    .grant-card.awarded::before   { background: var(--red); }
+
+    .grant-title { font-size: 15.5px; font-weight: 700; color: var(--navy); line-height: 1.4; margin-bottom: 6px; }
+    .grant-agency { font-size: 12.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .grant-desc { font-size: 13.5px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+    .grant-meta { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+    .grant-meta span { display: flex; align-items: center; gap: 5px; }
+    .grant-meta strong { color: var(--text); }
+    .grant-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 120px; }
+    .grant-amount { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); white-space: nowrap; }
+    .grant-amount-label { font-size: 10px; color: var(--muted); text-align: right; margin-top: -4px; }
+
+    .status-pill {
+      font-size: 10.5px; font-weight: 700; padding: 4px 12px;
+      border-radius: 20px; letter-spacing: 0.4px; white-space: nowrap;
+    }
+    .status-active    { background: #d8f3e3; color: #0e5a2a; }
+    .status-submitted { background: #fff0cc; color: #7a5400; }
+    .status-pending   { background: #deeeff; color: #0e4a85; }
+    .status-awarded   { background: #fde8e6; color: #8a1c14; }
+    .status-pipeline  { background: #ebebeb; color: #444; }
+
+    .collab-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+    .section-divider {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 8px; margin: 3rem 0 1.4rem;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-divider::after { content: ''; flex: 1; height: 1.5px; background: var(--border); }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 3rem;
+    }
+    .summary-tile {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      text-align: center;
+    }
+    .summary-tile .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .summary-tile .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    @media (max-width: 700px) {
+      .grant-card { grid-template-columns: 1fr; }
+      .grant-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .summary-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+<div class="stripe">
+  <div style="background:#1a3a5c"></div><div style="background:#1a4f2a"></div>
+  <div style="background:#d4991a"></div><div style="background:#c0392b"></div>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<section style="background:var(--navy2);padding:3.5rem 0 3rem;">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold);">Research funding</div>
+    <h1 style="color:#fff;margin-bottom:10px;">Grants &amp; Funded Proposals</h1>
+    <p style="color:rgba(255,255,255,0.65);max-width:600px;font-size:14.5px;line-height:1.75;">
+      STRIDE Lab pursues interdisciplinary funding to advance Causal
+      Neuro-Symbolic AI across manufacturing, healthcare, transportation,
+      and molecular science. Below is an overview of current, submitted,
+      and upcoming grant activity.
+    </p>
+  </div>
+</section>
+
+<!-- ── SUMMARY STRIP ── -->
+<section style="background:var(--light);padding:2.5rem 0 0;">
+  <div class="container">
+    <div class="summary-strip">
+      <div class="summary-tile">
+        <div class="num" style="color:var(--forest);">1</div>
+        <div class="lbl">Active Award</div>
+      </div>
+      <div class="summary-tile">
+        <div class="num" style="color:var(--gold);">3</div>
+        <div class="lbl">Under Review</div>
+      </div>
+      <div class="summary-tile">
+        <div class="num" style="color:var(--navy);">4</div>
+        <div class="lbl">In Pipeline</div>
+      </div>
+      <div class="summary-tile">
+        <div class="num" style="color:var(--red);">5+</div>
+        <div class="lbl">Collaborating Institutions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACTIVE AWARDS ── -->
+<section class="section" style="background:var(--light);padding-top:1.5rem;">
+  <div class="container">
+
+    <div class="section-divider">
+      <span style="color:var(--forest);">●</span> Active Awards
+    </div>
+
+    <!-- American Heart Association -->
+    <div class="grant-card active">
+      <div>
+        <div class="grant-agency">American Heart Association (AHA)</div>
+        <div class="grant-title">Causal Neuro-Symbolic AI for Stroke Reperfusion Outcome Prediction</div>
+        <p class="grant-desc">
+          This project applies the Counterfactual Causal Knowledge Graph (C-CKG)
+          framework to molecular pathway intervention in NHE9-mediated stroke
+          reperfusion injury. By modeling causal relationships in neurological
+          recovery pathways, the work aims to identify actionable intervention
+          points that improve post-stroke outcomes — bridging causal AI with
+          translational neuroscience.
+        </p>
+        <div class="grant-meta">
+          <span>📅 <strong>Period:</strong> 2025–2027</span>
+          <span>👤 <strong>Role:</strong> Co-PI</span>
+          <span>🏛️ <strong>Institution:</strong> University of Michigan – Dearborn</span>
+        </div>
+        <div class="collab-list">
+          <span class="badge badge-gray">Dr. Kalyan Kondapalli (Co-I)</span>
+          <span class="badge badge-gray">Dr. Suvranta Tripathi (Co-I)</span>
+          <span class="badge badge-gray">Dr. Krisanu Bandyopadhyay (Co-I)</span>
+        </div>
+      </div>
+      <div class="grant-right">
+        <span class="status-pill status-active">● Active</span>
+        <div>
+          <div class="grant-amount">AHA</div>
+          <div class="grant-amount-label">Funded Award</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:right;margin-top:4px;">Health Sciences</div>
+      </div>
+    </div>
+
+    <!-- ── UNDER REVIEW ── -->
+    <div class="section-divider" style="margin-top:3rem;">
+      <span style="color:var(--gold);">◐</span> Under Review
+    </div>
+
+    <!-- MIDAS PODS -->
+    <div class="grant-card submitted">
+      <div>
+        <div class="grant-agency">MIDAS – Michigan Institute for Data and AI in Society</div>
+        <div class="grant-title">Counterfactual Causal Knowledge Graphs (C-CKGs) for Root Cause Analysis and Actionable Intervention</div>
+        <p class="grant-desc">
+          Develops C-CKG — a unified graph-neural framework combining symbolic
+          causal structure with deep learning — and validates it across three
+          high-impact domains: predictive maintenance in smart manufacturing
+          (AI4I 2020 dataset), NHE9 molecular pathway intervention in stroke
+          reperfusion, and 2D copper nanoparticle synthesis optimization for
+          sustainable catalysis. The project targets actionable causal insights
+          that go beyond prediction to enable intervention.
+        </p>
+        <div class="grant-meta">
+          <span>📅 <strong>Period:</strong> 2026–2027 (proposed)</span>
+          <span>👤 <strong>Role:</strong> PI</span>
+          <span>🏛️ <strong>Program:</strong> MIDAS PODS 2026</span>
+        </div>
+        <div class="collab-list">
+          <span class="badge badge-gray">Kira Barton (ME, UM-Ann Arbor)</span>
+          <span class="badge badge-gray">Dr. Kondapalli (UM-Dearborn)</span>
+          <span class="badge badge-gray">Dr. Tripathi (UM-Dearborn)</span>
+          <span class="badge badge-gray">Dr. Bandyopadhyay (UM-Dearborn)</span>
+        </div>
+      </div>
+      <div class="grant-right">
+        <span class="status-pill status-submitted">◐ Under Review</span>
+        <div>
+          <div class="grant-amount">~$50K</div>
+          <div class="grant-amount-label">Requested</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:right;margin-top:4px;">MIDAS PODS</div>
+      </div>
+    </div>
+
+    <!-- UM Bold Challenges A2D2 -->
+    <div class="grant-card submitted">
+      <div>
+        <div class="grant-agency">University of Michigan Bold Challenges Initiative</div>
+        <div class="grant-title">A2D2: Ann Arbor–Detroit Digital Twins for Transportation and Supply Chain Resilience</div>
+        <p class="grant-desc">
+          Proposes a city-scale digital twin of the Ann Arbor–Detroit (A2D2)
+          transportation corridor integrating supply chain resilience, cyber-physical
+          security, and adaptive infrastructure policy. The project deploys
+          Graph Neural Networks, Physics-Informed Neural Networks, and Federated
+          Multi-Agent Reinforcement Learning across the Mcity testbed and SEMCOG
+          regional data infrastructure. Targets a Boost Award as a bridge toward
+          an NSF Infrastructure Systems and People submission in Fall 2026.
+        </p>
+        <div class="grant-meta">
+          <span>📅 <strong>Period:</strong> 2026 (Boost phase)</span>
+          <span>👤 <strong>Role:</strong> Lead PI</span>
+          <span>🏛️ <strong>Partners:</strong> Mcity · Ross School of Business · UM-Ann Arbor</span>
+        </div>
+        <div class="collab-list">
+          <span class="badge badge-gray">Ang Li (CIS, UM-Dearborn)</span>
+          <span class="badge badge-gray">Jun Li (Ross, UM-Ann Arbor)</span>
+          <span class="badge badge-gray">Greg McGuire (Mcity, UM-Ann Arbor)</span>
+        </div>
+      </div>
+      <div class="grant-right">
+        <span class="status-pill status-submitted">◐ Under Review</span>
+        <div>
+          <div class="grant-amount">Boost</div>
+          <div class="grant-amount-label">Award Sought</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:right;margin-top:4px;">U-M Bold Challenges</div>
+      </div>
+    </div>
+
+    <!-- PMRC -->
+    <div class="grant-card submitted">
+      <div>
+        <div class="grant-agency">Government of India – Prime Minister Research Chair (PMRC)</div>
+        <div class="grant-title">CausalNeSy for Atmanirbhar Bharat: Robust Causal AI for Self-Reliant Manufacturing and Healthcare</div>
+        <p class="grant-desc">
+          Proposes a five-year research fellowship applying the CausalNeSy framework
+          to challenges at the intersection of advanced manufacturing, healthcare AI,
+          and national self-reliance (Atmanirbhar Bharat). Targets IIT Bombay,
+          IIT Delhi, IISc Bangalore, and IIT Madras under Theme 5 (Advanced
+          Computing and AI). Aims to build robust, explainable causal AI
+          infrastructure with Indian research partners.
+        </p>
+        <div class="grant-meta">
+          <span>📅 <strong>Period:</strong> 5-year fellowship (proposed)</span>
+          <span>👤 <strong>Role:</strong> Applicant / PI</span>
+          <span>🏛️ <strong>Target Hosts:</strong> IIT Bombay · IIT Delhi · IISc · IIT Madras</span>
+        </div>
+        <div class="collab-list">
+          <span class="badge badge-gray">Theme 5: Advanced Computing &amp; AI</span>
+          <span class="badge badge-gray">Atmanirbhar Bharat</span>
+        </div>
+      </div>
+      <div class="grant-right">
+        <span class="status-pill status-submitted">◐ Under Review</span>
+        <div>
+          <div class="grant-amount">PMRC</div>
+          <div class="grant-amount-label">Fellowship</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:right;margin-top:4px;">Govt. of India</div>
+      </div>
+    </div>
+
+    <!-- ── IN DEVELOPMENT / PIPELINE ── -->
+    <div class="section-divider" style="margin-top:3rem;">
+      <span style="color:#3a6fa0;">○</span> In Development
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="pipeline-grid">
+
+      <div class="card" style="border-top:3px solid #3a6fa0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <span class="badge badge-blue">NSF</span>
+          <span class="status-pill status-pipeline">Pipeline</span>
+        </div>
+        <h3 style="color:var(--navy);font-size:14.5px;margin-bottom:8px;">NSF Infrastructure Systems and People</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+          Full NSF ISP submission targeting A2D2 corridor digital twin
+          research at scale — expanding the Boost Award scope to a
+          multi-year national infrastructure program.
+        </p>
+        <div style="font-size:12px;color:var(--muted);">
+          🎯 <strong>Target:</strong> Fall 2026 submission
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #3a6fa0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <span class="badge badge-blue">NSF</span>
+          <span class="status-pill status-pipeline">Pipeline</span>
+        </div>
+        <h3 style="color:var(--navy);font-size:14.5px;margin-bottom:8px;">NSF ERI – Causal AI for Smart Manufacturing</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+          Early-career Research Initiation grant targeting C-CKG deployment
+          for predictive maintenance and root-cause analysis in smart
+          manufacturing — building on CausalPulse and CausalTrace results.
+        </p>
+        <div style="font-size:12px;color:var(--muted);">
+          🎯 <strong>Target:</strong> 2026–2027
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #3a6fa0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <span class="badge badge-green">Industry</span>
+          <span class="status-pill status-pipeline">Pipeline</span>
+        </div>
+        <h3 style="color:var(--navy);font-size:14.5px;margin-bottom:8px;">Industry Partnership – Autonomous Systems</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+          Collaborative applied research on CausalKG for scene understanding
+          in autonomous driving, building on prior work with Bosch Center for
+          AI and Siemens iMetaverseKG.
+        </p>
+        <div style="font-size:12px;color:var(--muted);">
+          🎯 <strong>Target:</strong> 2026
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #3a6fa0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <span class="badge badge-gold">NIH</span>
+          <span class="status-pill status-pipeline">Pipeline</span>
+        </div>
+        <h3 style="color:var(--navy);font-size:14.5px;margin-bottom:8px;">NIH R21 – Causal AI for Pediatric Asthma</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+          Translational proposal applying CausalNeSy to pediatric asthma
+          outcome modeling, extending prior published results toward a
+          clinical-decision-support intervention system.
+        </p>
+        <div style="font-size:12px;color:var(--muted);">
+          🎯 <strong>Target:</strong> 2026–2027
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── COLLABORATE ── -->
+    <div style="margin-top:3rem;background:var(--navy);border-radius:14px;padding:2.5rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Work with us</div>
+        <h2 style="color:#fff;font-size:1.4rem;margin-bottom:8px;">Interested in collaborating or co-writing a proposal?</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:13.5px;max-width:520px;line-height:1.7;">
+          STRIDE Lab actively seeks collaborators from CS, medicine, engineering,
+          and social sciences. If your research aligns with Causal AI, Knowledge
+          Graphs, or AI for high-stakes domains, we'd love to talk.
+        </p>
+      </div>
+      <a href="contact.html" class="btn btn-gold" style="white-space:nowrap;flex-shrink:0;">Get in touch</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @media(max-width:700px){
+    .pipeline-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script> renderNav('Grants'); renderFooter(); </script>
+</body>
+</html>
