@@ -4,6 +4,7 @@ function renderNav(activePage) {
     { href: 'index.html',        label: 'Home' },
     { href: 'research.html',     label: 'Research' },
     { href: 'publications.html', label: 'Publications' },
+    { href: 'grants.html',       label: 'Grants' },
     { href: 'people.html',       label: 'People' },
     { href: 'teaching.html',     label: 'Teaching' },
     { href: 'news.html',         label: 'News' },
@@ -63,8 +64,8 @@ function renderFooter() {
         <div class="footer-col">
           <h4>Work</h4>
           <a href="publications.html">Publications</a>
+          <a href="grants.html">Grants &amp; Funding</a>
           <a href="teaching.html">Teaching</a>
-          <a href="research.html#projects">Projects</a>
           <a href="people.html#join">Join Us</a>
         </div>
         <div class="footer-col">
